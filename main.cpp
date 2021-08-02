@@ -6,6 +6,12 @@ const std::string GREEK_QUESTION_MARK = ";", SPACE = " ";
 bool
 writeToFile(const std::string& filepath, const std::string& text)
 {
+    // Function to write text into file
+
+    // Creates new file at given filepath (replaces if already exists)
+    // Writes given text into file
+    // Returns true if succeeded else false
+
     std::fstream file;
 	file.open(filepath, std::ios::out);
 	if (!file) 
@@ -23,6 +29,12 @@ writeToFile(const std::string& filepath, const std::string& text)
 bool
 readFromFile(const std::string& filepath, std::string& text)
 {
+    // Function to read text from file
+
+    // Opens file at given filepath
+    // Reads and saves all text from file to given text variable
+    // Returns true if succeeded else false
+
     std::fstream file;
 	file.open(filepath, std::ios::in);
     
@@ -45,6 +57,8 @@ readFromFile(const std::string& filepath, std::string& text)
 void
 ruinFile(const std::string& filepath)
 {
+    // Function to ruin file
+
     std::string fileContent;
     if (!readFromFile(filepath, fileContent))
         return;
