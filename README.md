@@ -5,6 +5,8 @@ A simple C++ script to ruin code and make your life a nightmare
 
 (or your ~~imaginary~~ friends')
 
+Script replaces semicolons with greek question marks and vanilla
+spaces with space characters
 
 ## Installation
 
