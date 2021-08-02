@@ -1,8 +1,6 @@
 #include <iostream>
 #include <fstream>
 
-const std::string GREEK_QUESTION_MARK = ";", SPACE = " ";
-
 bool
 writeToFile(const std::string& filepath, const std::string& text)
 {
@@ -55,32 +53,52 @@ readFromFile(const std::string& filepath, std::string& text)
 }
 
 void
+ruinCode(std::string& text)
+{
+    // Function to ruin code
+
+    // Replaces all semicolons with greek question marks
+    // and vanilla spaces with space characters 
+    // Writes ruined code into given text variable
+    // !--doesn't return any value--!
+
+    const std::string GREEK_QUESTION_MARK = ";", SPACE = " ";
+    std::string ruinedText = "";
+
+    for (const char& c : text)
+    {
+        switch (c)
+        {
+        case ' ':
+            ruinedText += SPACE;
+            break;
+        case ';':
+            ruinedText += GREEK_QUESTION_MARK;
+            break;
+        default:
+        ruinedText += c;
+            break;
+        }
+    }
+
+    text = ruinedText;
+}
+
+void
 ruinFile(const std::string& filepath)
 {
     // Function to ruin file
+
+    // Opens file, reads all code from it
+    // and replaces it with ruined one
 
     std::string fileContent;
     if (!readFromFile(filepath, fileContent))
         return;
 
-    std::string ruinedContent = "";
-    for (const char& c : fileContent)
-    {
-        switch (c)
-        {
-        case ' ':
-            ruinedContent += SPACE;
-            break;
-        case ';':
-            ruinedContent += GREEK_QUESTION_MARK;
-            break;
-        default:
-        ruinedContent += c;
-            break;
-        }
-    }
+    ruinCode(fileContent);
     
-    if(writeToFile(filepath, ruinedContent))
+    if(writeToFile(filepath, fileContent))
         std::cout << "File ruined successfully at " << filepath << std::endl;
     else
         std::cout << "Unable to ruin file at " << filepath << std::endl;
