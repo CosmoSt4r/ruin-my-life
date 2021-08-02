@@ -3,7 +3,7 @@
 
 const std::string GREEK_QUESTION_MARK = ";", SPACE = " ";
 
-void
+bool
 writeToFile(const std::string& filepath, const std::string& text)
 {
     std::fstream file;
@@ -11,13 +11,13 @@ writeToFile(const std::string& filepath, const std::string& text)
 	if (!file) 
     {
 		std::cout << "Unable to create file at " << filepath << std::endl;
-        return;
+        return false;
     }
-	else 
-		std::cout << "File created successfully at " << filepath << std::endl;
 
 	file << text;
     file.close();
+
+    return true;
 }
 
 bool
@@ -50,7 +50,7 @@ ruinFile(const std::string& filepath)
         return;
 
     std::string ruinedContent = "";
-    for (char& c : fileContent)
+    for (const char& c : fileContent)
     {
         switch (c)
         {
@@ -66,7 +66,10 @@ ruinFile(const std::string& filepath)
         }
     }
     
-    writeToFile(filepath, ruinedContent);
+    if(writeToFile(filepath, ruinedContent))
+        std::cout << "File ruined successfully at " << filepath;
+    else
+        std::cout << "Unable to ruin file at " << filepath;
 }
 
 int main(int argc, char *argv[])
