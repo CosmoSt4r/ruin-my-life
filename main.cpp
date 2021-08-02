@@ -67,17 +67,18 @@ ruinFile(const std::string& filepath)
     }
     
     if(writeToFile(filepath, ruinedContent))
-        std::cout << "File ruined successfully at " << filepath;
+        std::cout << "File ruined successfully at " << filepath << std::endl;
     else
-        std::cout << "Unable to ruin file at " << filepath;
+        std::cout << "Unable to ruin file at " << filepath << std::endl;
 }
 
 int main(int argc, char *argv[])
 {
-    for (int i = 1; i < argc; ++i)
-    {
-        ruinFile(argv[i]);
-    }
+    if (argc <= 1)
+        std::cout << "You have to pass filepaths as parameters" << std::endl;
 
-    return 0;
+    for (int i = 1; i < argc; ++i)
+        ruinFile(argv[i]);
+
+    return EXIT_SUCCESS;
 }
