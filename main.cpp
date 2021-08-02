@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 
-const char GREEK_QUESTION_MARK = ';', SPACE = ' ';
+const std::string GREEK_QUESTION_MARK = ";", SPACE = " ";
 
 void
 writeToFile(const std::string& filepath, const std::string& text)
@@ -20,7 +20,7 @@ writeToFile(const std::string& filepath, const std::string& text)
     file.close();
 }
 
-void
+bool
 readFromFile(const std::string& filepath, std::string& text)
 {
     std::fstream file;
@@ -29,7 +29,7 @@ readFromFile(const std::string& filepath, std::string& text)
     if (!file) 
     {
 		std::cout << "Unable to open file at " << filepath << std::endl;
-        return;
+        return false;
     }
 	else 
 		std::cout << "File opened successfully at " << filepath << std::endl;
@@ -38,12 +38,35 @@ readFromFile(const std::string& filepath, std::string& text)
     while (getline(file, line))
         text += line + '\n';
     file.close();
+
+    return true;
 }
 
 void
 ruinFile(const std::string& filepath)
 {
-    return;
+    std::string fileContent;
+    if (!readFromFile(filepath, fileContent))
+        return;
+
+    std::string ruinedContent = "";
+    for (char& c : fileContent)
+    {
+        switch (c)
+        {
+        case ' ':
+            ruinedContent += SPACE;
+            break;
+        case ';':
+            ruinedContent += GREEK_QUESTION_MARK;
+            break;
+        default:
+        ruinedContent += c;
+            break;
+        }
+    }
+    
+    writeToFile(filepath, ruinedContent);
 }
 
 int main(int argc, char *argv[])
